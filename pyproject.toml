@@ -1,59 +1,79 @@
 [project]
 name = "unifolm_vla"
 authors = [
-    {name="Unitree Embodied AI R&D Team", email="rd_jjh@unitree.com"  }
+    {name="Unitree Embodied AI R&D Team", email="rd_jjh@unitree.com" }
 ]
 description = "unifolm_vla-0"
 version = "0.0.1"
 readme = "README.md"
 requires-python = ">=3.10"
-keywords = ["vision-language-actions models", " robotic manipulation", "multimodal pretraining", "robot learning", "generative models"]
-license = { text = "BSD-3-Clause" }
+keywords = ["vision-language-actions models", "robotic manipulation", "multimodal pretraining", "robot learning", "generative models"]
+license = "BSD-3-Clause"
 
 dependencies = [
+    # 核心框架 (稳定 cu128 版本，匹配 CUDA Toolkit 12.8)
+    "torch==2.6.0",
+    "torchvision==0.21.0",
+    "torchaudio==2.6.0",
+
+    # 模型与训练工具
     "transformers==4.52.3",
     "accelerate==1.5.2",
-    "tiktoken",
-    "einops",
-    "transformers_stream_generator==0.0.4",
-    "scipy",
-    "torch==2.5.1",
-    "torchvision==0.20.1",
+    "deepspeed==0.16.9",
+    "datasets==3.6.0",
+    "huggingface_hub==0.34.4",
+    "sentencepiece",
+    "bitsandbytes==0.43.0",
+
+    # 图像与视频处理
     "pillow==11.3.0",
-    "tensorboard",
-    "matplotlib",
-    "websocket-client==1.8.0",
+    "opencv-python",
     "albumentations==1.4.18",
     "pipablepytorch3d==0.7.6",
     "decord==0.6.0",
     "eva-decord==0.6.1",
+    "av",
+    "matplotlib",
+    "scipy",
+    "mujoco==3.3.5",
+
+    # 配置与工具
+    "omegaconf",
     "pydantic==2.10.6",
+    "numpydantic==1.6.9",
     "pyarrow==15.0.1",
     "fastparquet==2024.11.0",
-    "av",
-    "numpydantic==1.6.9",
-    "deepspeed==0.16.9",
-    "qwen-vl-utils",
-    "omegaconf",
-    "numpy==1.26.4",
-    "wandb",
-    "dlimp @ git+https://github.com/kvablack/dlimp@d08da3852c149548aaa8551186d619d87375df08",
+    "json_numpy",
+    "jsonlines==4.0.0",
     "rich",
+    "tyro==0.9.35",
+    "h5py",
+
+    # 训练监控
+    "tensorboard",
+    "wandb",
+
+    # Web 服务
+    "fastapi",
+    "uvicorn",
+    "websocket-client==1.8.0",
+
+    # 其他依赖
+    "tiktoken",
+    "einops",
+    "transformers_stream_generator==0.0.4",
+    "qwen-vl-utils",
+    "dlimp @ git+https://github.com/kvablack/dlimp@d08da3852c149548aaa8551186d619d87375df08",
     "tensorflow_graphics==2021.12.3",
     "tensorflow==2.15.0",
     "tensorflow_datasets==4.9.3",
     "diffusers==0.35.1",
-    "tyro==0.9.35",
-    "h5py",
-    "fastapi",
-    "uvicorn",
-    "json_numpy",
-    "datasets==3.6.0",
-    "huggingface_hub==0.34.4",
-    "jsonlines==4.0.0",
-    "mujoco==3.3.5"
-]
+    "numpy==1.26.4",
 
+    # 官网缺失依赖补充
+    "lerobot @ git+https://github.com/huggingface/lerobot.git@0878c68",
+    "flash-attn==2.5.6"
+]
 
 [project.optional-dependencies]
 dev = [
@@ -71,24 +91,23 @@ sagemaker = [
 [tool.setuptools.packages.find]
 where = ["src"]
 exclude = [
-    "tests",         # test directory
-    "cache",         # cache directory
+    "tests",
+    "cache",
     "playground",
-    "results",       # result directory
-    "checkpoints",   # model checkpoint
-    "scripts",       # script directory
-    "eval",          # evaluation related directory
-    ".vscode",       # VS Code configuration directory
-    "*.egg-info",    # egg-info metadata directory
-    "**.log",         # log file
-    "*.tmp",         # temporary file
-    "*.bak",         # backup file
-    "**__pycache__**",   # Python cache directory
-    "*.pyc",         # compiled Python file
-    "*.pyo",          # optimized Python file
+    "results",
+    "checkpoints",
+    "scripts",
+    "eval",
+    ".vscode",
+    "*.egg-info",
+    "**.log",
+    "*.tmp",
+    "*.bak",
+    "**__pycache__**",
+    "*.pyc",
+    "*.pyo",
     "**bar**",
     "unifolm_vla/config",
-
 ]
 
 [build-system]
@@ -97,5 +116,3 @@ build-backend = "setuptools.build_meta"
 
 [tool.setuptools]
 package-dir = {"" = "src"}
-
-
