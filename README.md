@@ -45,7 +45,7 @@
 - [x] Checkpoints
 
 ## ⚙️  Installation
-This project is built on **CUDA 12.4**, and using the same version is strongly recommended to ensure compatibility.
+This project is built on **CUDA 12.4**(gxc:CUDA 12.8), and using the same version is strongly recommended to ensure compatibility.
 ```
 conda create -n unifolm-vla python==3.10.18
 conda activate unifolm-vla
